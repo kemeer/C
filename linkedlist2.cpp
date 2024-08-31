@@ -12,6 +12,7 @@ void bastir(node* r){
 		printf("%d\n",r->x);
 		r= r->next;
 	}
+	printf("\n");
 }
 
 void ekle(node *r,int x){
@@ -49,18 +50,29 @@ node* ekleSirali(node *r,int x){
 	iter->next = temp;
 	temp->x = x;
 	return r;
+}
+
+node *sil(node *r,int x){
+	node *temp,*iter=r;
 	
+	if(r->x==x){
+		temp = r;
+		r = r->next;
+		free(temp);
+		return r;
+	}
+		
+	while(iter->next !=NULL && iter->next->x!=x)iter = iter->next;
 	
-	//Tek kutu olma durumu
-//	if(r->next = NULL){
-//		if{
-//			node* temp = (node*)malloc(sizeof(node));
-//			temp->x = x;
-//			temp->next = NULL;
-//			r->next= temp;
-//			
-//		}
-//	}
+	if(iter->next==NULL){
+		printf("Sayi bulunamadi");
+		return r;
+	}
+	temp = iter->next;
+	iter->next = iter->next->next;
+	free(temp);
+	return r;
+	
 }
 
 int main(){
@@ -71,7 +83,10 @@ int main(){
 	root = ekleSirali(root,2);
 	root = ekleSirali(root,56);
 	root = ekleSirali(root,34);
-	//Olusturma
+	
+	bastir(root);
+	
+	root = sil(root,2);
 	
 	bastir(root);
 	
